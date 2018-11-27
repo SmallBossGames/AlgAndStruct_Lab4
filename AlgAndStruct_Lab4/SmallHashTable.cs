@@ -11,12 +11,22 @@ namespace AlgAndStruct_Lab4
         private readonly HashTableNode<string, TValue>[] _nodes;
         private readonly HashType _hashType;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="capacity">Объём массива узлов</param>
+        /// <param name="hashType">Алгоритм хеширования</param>
         public SmallHashTable(long capacity, HashType hashType)
         {
             _nodes = new HashTableNode<string, TValue>[capacity];
             _hashType = hashType;
         }
 
+        /// <summary>
+        /// Добавить элемент в таблицу
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <param name="value">Значение</param>
         public void Add(string key, TValue value)
         {
             var hash = GetHash(key);
@@ -40,6 +50,12 @@ namespace AlgAndStruct_Lab4
             };
         }
 
+
+        /// <summary>
+        /// Удаление элемента из таблицы
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <returns></returns>
         public bool Remove(string key)
         {
             var hash = GetHash(key);
@@ -71,6 +87,11 @@ namespace AlgAndStruct_Lab4
             return false;
         }
 
+        /// <summary>
+        /// Индексатор, для произвольного доступа к элементам
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <returns></returns>
         public TValue this[string key]
         {
             get
@@ -94,6 +115,12 @@ namespace AlgAndStruct_Lab4
             }
         }
 
+        /// <summary>
+        /// Получение значения конкретного узла
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <param name="value">Выходное значение</param>
+        /// <returns></returns>
         public bool TryGetValue(string key, out TValue value)
         {
             var success = TryGetNode(key, out var node);
@@ -101,6 +128,12 @@ namespace AlgAndStruct_Lab4
             return success;
         }
 
+        /// <summary>
+        /// Получение объекта конкретного узла
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <param name="value">Узел</param>
+        /// <returns></returns>
         private bool TryGetNode(string key, out HashTableNode<string, TValue> tableNode)
         {
             var hash = GetHash(key);
@@ -121,6 +154,11 @@ namespace AlgAndStruct_Lab4
             return false;
         }
 
+        /// <summary>
+        /// Получить хеш-код
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <returns></returns>
         private long GetHash(string key)
         {
             switch (_hashType)
@@ -128,12 +166,17 @@ namespace AlgAndStruct_Lab4
                 case HashType.ConcatHash:
                     return GetConcatHash(key);
                 case HashType.AdaptiveHash:
-                    return GetAdaptiveHash(key);
+                    return GetAdditiveHash(key);
                 default:
                     throw new ArgumentException();
             }
         }
 
+        /// <summary>
+        /// Получить хеш-код алгоритмом конкатинации
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <returns></returns>
         private long GetConcatHash(string key)
         {
             var temp = 0L;
@@ -144,7 +187,12 @@ namespace AlgAndStruct_Lab4
             return temp % _nodes.LongLength;
         }
 
-        private long GetAdaptiveHash(string key)
+        /// <summary>
+        /// Получить хеш-код аддитивным алгоритмом
+        /// </summary>
+        /// <param name="key">Ключ</param>
+        /// <returns></returns>
+        private long GetAdditiveHash(string key)
         {
             var temp = 0L;
             for (int i = 0; i < key.Length; i++)
