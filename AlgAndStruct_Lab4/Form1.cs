@@ -16,5 +16,19 @@ namespace AlgAndStruct_Lab4
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SmallHashTable<string> smallHashTable = new SmallHashTable<string>(Convert.ToInt32(capacityTextBox.Text), HashType.ConcatHash);
+
+            smallHashTable.Add(stringTextBox.Text, KeyTextBox.Text);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SmallHashTable<string> smallHashTable = new SmallHashTable<string>(Convert.ToInt32(capacityTextBox.Text), HashType.AdaptiveHash);
+
+            smallHashTable.Add(stringTextBox.Text, KeyTextBox.Text);
+        }
     }
 }
