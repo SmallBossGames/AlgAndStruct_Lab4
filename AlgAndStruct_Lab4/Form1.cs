@@ -17,20 +17,15 @@ namespace AlgAndStruct_Lab4
             InitializeComponent();
         }
 
-        SmallHashTable<string> smallHashTableConcat = new SmallHashTable<string>(Convert.ToInt32(10), HashType.ConcatHash);
-        SmallHashTable<string> smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(10), HashType.AdaptiveHash);
+        static long capacity = 10;
+        SmallHashTable<string> smallHashTableConcat = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
+        SmallHashTable<string> smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.AdaptiveHash);
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string key = "a";
             string[] rich = richStringTextBox.Text.Split(' ');
             foreach (var a in rich)
-            {
-                smallHashTableConcat.Add(key, a);
-                key += "a";
-            }
-
-            //chart1.Series[0].Points.Clear();
+                smallHashTableConcat[a] = a;
 
             int[] collisions = smallHashTableConcat.collisions;
 
@@ -40,15 +35,10 @@ namespace AlgAndStruct_Lab4
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string key = "a";
             string[] rich = richStringTextBox.Text.Split(' ');
 
             foreach (var a in rich)
-            {
-                smallHashTableAdaptive.Add(key, a);
-                key += "a";
-            }
-            //chart1.Series[0].Points.Clear();
+                smallHashTableAdaptive[a] = a;
 
             int[] collisions = smallHashTableAdaptive.collisions;
 
@@ -59,6 +49,13 @@ namespace AlgAndStruct_Lab4
         private void ClearButton_Click(object sender, EventArgs e)
         {
             chart1.Series[0].Points.Clear();
+        }
+
+        private void capacityButton_Click(object sender, EventArgs e)
+        {
+            capacity = Convert.ToUInt32(capacityTextBox.Text);
+            smallHashTableConcat=new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
+            smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
         }
     }
 }
