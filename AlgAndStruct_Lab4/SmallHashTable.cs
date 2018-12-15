@@ -46,7 +46,7 @@ namespace AlgAndStruct_Lab4
         public void Add(string key, TValue value)
         {
             var hash = GetHash(key);
-            
+
             var current = _nodes[hash];
 
 #if DEBUG
@@ -58,7 +58,7 @@ namespace AlgAndStruct_Lab4
 
             while (current != null) 
             {
-                if(current.Key==key)
+                if (current.Key == key)
                 {
                     throw new ArgumentException("This key are exist");
                 }
@@ -73,7 +73,6 @@ namespace AlgAndStruct_Lab4
             };
         }
 
-
         /// <summary>
         /// Удаление элемента из таблицы
         /// </summary>
@@ -85,21 +84,21 @@ namespace AlgAndStruct_Lab4
 
             var current = _nodes[hash];
 
-            if(current == null)
+            if (current == null)
             {
                 return false;
             }
 
-            if(current.Key==key)
+            if (current.Key == key)
             {
                 _nodes[hash] = current.Next;
                 return true;
             }
 
-            while (current.Next!=null)
+            while (current.Next != null)
             {
                 var next = current.Next;
-                if(next.Key == key)
+                if (next.Key == key)
                 {
                     current.Next = next.Next;
                     return true;
@@ -120,7 +119,7 @@ namespace AlgAndStruct_Lab4
             get
             {
                 var success = TryGetNode(key, out var node);
-                if(!success)
+                if (!success)
                 {
                     throw new KeyNotFoundException();
                 }
@@ -226,7 +225,7 @@ namespace AlgAndStruct_Lab4
         }
     }
 
-    class HashTableNode<TKey,TValue>
+    class HashTableNode<TKey, TValue>
     {
         public HashTableNode<TKey, TValue> Next { get; set; }
         public TKey Key { get; set; }
