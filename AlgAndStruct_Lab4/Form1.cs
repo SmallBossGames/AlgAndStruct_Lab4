@@ -17,15 +17,22 @@ namespace AlgAndStruct_Lab4
             InitializeComponent();
         }
 
+        SmallHashTable<string> smallHashTableConcat = new SmallHashTable<string>(Convert.ToInt32(10), HashType.ConcatHash);
+        SmallHashTable<string> smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(10), HashType.AdaptiveHash);
+
         private void button1_Click(object sender, EventArgs e)
-        {            
-            SmallHashTable<string> smallHashTable = new SmallHashTable<string>(Convert.ToInt32(capacityTextBox.Text), HashType.ConcatHash);
+        {
+            string key = "a";
+            string[] rich = richStringTextBox.Text.Split(' ');
+            foreach (var a in rich)
+            {
+                smallHashTableConcat.Add(key, a);
+                key += "a";
+            }
 
-            smallHashTable.Add(stringTextBox.Text, KeyTextBox.Text);
+            //chart1.Series[0].Points.Clear();
 
-            chart1.Series[0].Points.Clear();
-
-            int[] collisions = smallHashTable.collisions;
+            int[] collisions = smallHashTableConcat.collisions;
 
             foreach (var a in collisions)
                 chart1.Series[0].Points.Add(Convert.ToDouble(a));
@@ -33,16 +40,25 @@ namespace AlgAndStruct_Lab4
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SmallHashTable<string> smallHashTable = new SmallHashTable<string>(Convert.ToInt32(capacityTextBox.Text), HashType.AdaptiveHash);
+            string key = "a";
+            string[] rich = richStringTextBox.Text.Split(' ');
 
-            smallHashTable.Add(stringTextBox.Text, KeyTextBox.Text);
+            foreach (var a in rich)
+            {
+                smallHashTableAdaptive.Add(key, a);
+                key += "a";
+            }
+            //chart1.Series[0].Points.Clear();
 
-            chart1.Series[0].Points.Clear();
-
-            int[] collisions = smallHashTable.collisions;
+            int[] collisions = smallHashTableAdaptive.collisions;
 
             foreach (var a in collisions)
                 chart1.Series[0].Points.Add(Convert.ToDouble(a));
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            chart1.Series[0].Points.Clear();
         }
     }
 }
