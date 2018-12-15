@@ -18,10 +18,17 @@ namespace AlgAndStruct_Lab4
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {            
             SmallHashTable<string> smallHashTable = new SmallHashTable<string>(Convert.ToInt32(capacityTextBox.Text), HashType.ConcatHash);
 
             smallHashTable.Add(stringTextBox.Text, KeyTextBox.Text);
+
+            chart1.Series[0].Points.Clear();
+
+            int[] collisions = smallHashTable.collisions;
+
+            foreach (var a in collisions)
+                chart1.Series[0].Points.Add(Convert.ToDouble(a));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -29,6 +36,13 @@ namespace AlgAndStruct_Lab4
             SmallHashTable<string> smallHashTable = new SmallHashTable<string>(Convert.ToInt32(capacityTextBox.Text), HashType.AdaptiveHash);
 
             smallHashTable.Add(stringTextBox.Text, KeyTextBox.Text);
+
+            chart1.Series[0].Points.Clear();
+
+            int[] collisions = smallHashTable.collisions;
+
+            foreach (var a in collisions)
+                chart1.Series[0].Points.Add(Convert.ToDouble(a));
         }
     }
 }
