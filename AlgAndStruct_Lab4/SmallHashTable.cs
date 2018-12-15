@@ -11,6 +11,13 @@ namespace AlgAndStruct_Lab4
         private readonly HashTableNode<string, TValue>[] _nodes;
         private readonly HashType _hashType;
 
+#if DEBUG
+
+        public readonly int[] collisions;
+
+#endif
+
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -20,6 +27,15 @@ namespace AlgAndStruct_Lab4
         {
             _nodes = new HashTableNode<string, TValue>[capacity];
             _hashType = hashType;
+
+#if DEBUG
+            collisions = new int[capacity];
+
+            for (int i = 0; i < capacity; i++)
+            {
+                collisions[i] = 0;
+            }
+#endif
         }
 
         /// <summary>
@@ -32,6 +48,13 @@ namespace AlgAndStruct_Lab4
             var hash = GetHash(key);
             
             var current = _nodes[hash];
+
+#if DEBUG
+            if(_nodes[hash] != null)
+            {
+                collisions[hash]++;
+            }
+#endif
 
             while (current != null) 
             {
