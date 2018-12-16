@@ -204,7 +204,7 @@ namespace AlgAndStruct_Lab4
             var temp = 0L;
             for (int i = 0; i < key.Length; i++)
             {
-                temp = (temp << 4) | key[i];
+                temp = (temp << 8) | key[i];
             }
             return temp % _nodes.LongLength;
         }
