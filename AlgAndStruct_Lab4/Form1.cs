@@ -18,11 +18,12 @@ namespace AlgAndStruct_Lab4
         }
 
         static long capacity = 10;
-        SmallHashTable<string> smallHashTableConcat = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
-        SmallHashTable<string> smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.AdaptiveHash);
+        SmallHashTable<string> smallHashTableConcat;
+        SmallHashTable<string> smallHashTableAdaptive;
 
         private void button1_Click(object sender, EventArgs e)
         {
+            smallHashTableConcat = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
             string[] rich = richStringTextBox.Text.Split(' ');
             foreach (var a in rich)
                 smallHashTableConcat[a] = a;
@@ -35,6 +36,7 @@ namespace AlgAndStruct_Lab4
 
         private void button2_Click(object sender, EventArgs e)
         {
+            smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.AdaptiveHash);
             string[] rich = richStringTextBox.Text.Split(' ');
 
             foreach (var a in rich)
@@ -54,8 +56,6 @@ namespace AlgAndStruct_Lab4
         private void capacityButton_Click(object sender, EventArgs e)
         {
             capacity = Convert.ToUInt32(capacityTextBox.Text);
-            smallHashTableConcat=new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
-            smallHashTableAdaptive = new SmallHashTable<string>(Convert.ToInt32(capacity), HashType.ConcatHash);
         }
     }
 }
